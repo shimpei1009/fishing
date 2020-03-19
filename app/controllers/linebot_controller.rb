@@ -88,8 +88,20 @@ class LinebotController < ApplicationController
             tideLevel2 = doc.elements['tideinfo/tidedetails[2]/tide-level'].text
             tideLevel3 = doc.elements['tideinfo/tidedetails[3]/tide-level'].text
             tideLevel4 = doc.elements['tideinfo/tidedetails[4]/tide-level'].text
+            if tideLevel4 == nil
             push = 
-            "本日の潮位です。\n\n#{tideName}\n#{tideTime1}\n#{tideLevel1}cm\n#{tideTime2}\n#{tideLevel2}cm\n#{tideTime3}cm\n#{tideLevel3}\n#{tideTime4}\n#{tideLevel4}cm"
+              "本日の潮位です。\n潮を読みきれ！！\n\n#{tideName}\n#{tideTime1} / #{tideLevel1}cm\n#{tideTime2} / #{tideLevel2}cm\n#{tideTime3} / #{tideLevel3}cm"
+            else
+            push = 
+              "本日の潮位です。\n潮を読みきれ！！\n\n#{tideName}\n#{tideTime1} / #{tideLevel1}cm\n#{tideTime2} / #{tideLevel2}cm\n#{tideTime3} / #{tideLevel3}cm\n#{tideTime4} / #{tideLevel4}cm"
+            end
+          when /.*(日の出|日の入|ひので|ひのいり|日ノ出|日ノ入|マズメ|まずめ).*/
+            url  = "http://fishing-community.appspot.com/tidexml/index?portid=103&year=&month=&day="
+            xml  = open( url ).read.toutf8
+            doc = REXML::Document.new(xml)
+            sunrise = doc.elements['tideinfo/sunrise-time'].text
+            sunset = doc.elements['tideinfo/sunset-time'].text
+            push = "マズメを攻めろ！\n\n日の出：#{sunrise}\n日の入り：#{sunset}"
           when /.*(かわいい|可愛い|カワイイ|きれい|綺麗|キレイ|素敵|ステキ|すてき|面白い|おもしろい|ありがと|すごい|スゴイ|スゴい|好き|頑張|がんば|ガンバ).*/
             push =
               "ありがとうございます！！！\n優しい言葉をかけてくれるあなたはとても素敵です！！"
