@@ -53,8 +53,9 @@ class LinebotController < ApplicationController
             mintemp = doc.elements[xpath + 'info[2]/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               # もし降水確率がmin_per以上の場合
-              push =
-
+              push = "明日は雨が降りそう...\nでも、魚は活発になるよ！\n 最高気温 #{maxtemp}％\n 最低気温 #{mintemp}％\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％\n"
+            else
+              push = "明日は釣り日和になるよ！\nタックルの準備だ！\n 最高気温 #{maxtemp}％\n 最低気温 #{mintemp}％\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％"
             end
           when /.*(明後日|あさって).*/
             per06to12 = doc.elements[xpath + 'info[3]/rainfallchance/period[2]l'].text
@@ -63,7 +64,9 @@ class LinebotController < ApplicationController
             maxtemp = doc.elements[xpath + 'info[3]/temperature/range[1]'].text
             mintemp = doc.elements[xpath + 'info[3]/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
-              push =
+              push = "明後日は雨が降るかも...\nでも、まだまだわからない！\n 最高気温 #{maxtemp}％\n 最低気温 #{mintemp}％\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％\n"
+            else
+              push = "明後日は釣り日和になるよ！\n楽しみだね！\n 最高気温 #{maxtemp}％\n 最低気温 #{mintemp}％\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％\n"
 
             end
           when /.*(かわいい|可愛い|カワイイ|きれい|綺麗|キレイ|素敵|ステキ|すてき|面白い|おもしろい|ありがと|すごい|スゴイ|スゴい|好き|頑張|がんば|ガンバ).*/
@@ -76,7 +79,10 @@ class LinebotController < ApplicationController
             push =
             ["大吉！！!\n爆釣の予感！！！",
              "中吉！!\n楽しい釣りになりそう！",
-
+             "小吉！\n厳しい中の価値ある１本に期待",
+             "凶...\n釣れないかも...\n根がかりに気をつけましょう！"].sample
+          else
+             push = "釣れてる夢でも見てな！"
           end
           # テキスト以外（画像等）のメッセージが送られた場合
         else
