@@ -35,8 +35,8 @@ class LinebotController < ApplicationController
             per06to12 = doc.elements[xpath + 'info/rainfallchance/period[2]'].text
             per12to18 = doc.elements[xpath + 'info/rainfallchance/period[3]'].text
             per18to24 = doc.elements[xpath + 'info/rainfallchance/period[4]'].text
-            maxtemp = doc.elements[xpath + 'info/temperature/range[1]'].text
-            mintemp = doc.elements[xpath + 'info/temperature/range[2]'].text
+            maxTemp = doc.elements[xpath + 'info/temperature/range[1]'].text
+            minTemp = doc.elements[xpath + 'info/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push =
               "雨が降りそう...\n足元に気をつけて頑張ってね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
@@ -51,8 +51,8 @@ class LinebotController < ApplicationController
             per06to12 = doc.elements[xpath + 'info[2]/rainfallchance/period[2]'].text
             per12to18 = doc.elements[xpath + 'info[2]/rainfallchance/period[3]'].text
             per18to24 = doc.elements[xpath + 'info[2]/rainfallchance/period[4]'].text
-            maxtemp = doc.elements[xpath + 'info[2]/temperature/range[1]'].text
-            mintemp = doc.elements[xpath + 'info[2]/temperature/range[2]'].text
+            maxTemp = doc.elements[xpath + 'info[2]/temperature/range[1]'].text
+            minTemp = doc.elements[xpath + 'info[2]/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               # もし降水確率がmin_per以上の場合
               push = 
