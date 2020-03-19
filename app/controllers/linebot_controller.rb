@@ -38,7 +38,7 @@ class LinebotController < ApplicationController
               "明後日は雨が降るかも#84 \nでも、まだまだわからない！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push = 
-              "明後日は釣り日和になるよ！\n楽しみだね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "明後日は釣り日和になるよ#84\n楽しみだね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(明日|あした).*/
             per00to06 = doc.elements[xpath + 'info[2]/rainfallchance/period[1]'].text
