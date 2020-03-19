@@ -52,7 +52,7 @@ class LinebotController < ApplicationController
               "明日は雨が降りそう\u{2614} \nでも、魚は活発になるよ\u{1F41F} \n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push = 
-              "明日は釣り日和になるよ\u{2600} \nタックルの準備だ\u{1F604} \n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "明日は釣り日和になるよ\u{2600} \nタックルの準備だ\u{1F606} \n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(今日|きょう|天気).*/
             per00to06 = doc.elements[xpath + 'info/rainfallchance/period[1]'].text
@@ -63,7 +63,7 @@ class LinebotController < ApplicationController
             minTemp = doc.elements[xpath + 'info/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push =
-              "雨が降りそう\u{2614} \n足元に気をつけて頑張ってね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "雨が降りそう\u{2614} \n足元に気をつけてね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push =
               "良い天気だね\u{2600} \nたくさん釣れると良いね\u{1F604} \n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
@@ -103,12 +103,12 @@ class LinebotController < ApplicationController
               "こんにちは！\n今日は釣りですか？\u{1F604}"
           when /.*(占い|うらない).*/
             push =
-            ["大吉!!! \n爆釣の予感\u{1F41F}\u{1F41F}\u{1F41F}",
-             "中吉!! \n楽しい釣りになりそう\u{1F41F}\u{1F41F}",
-             "小吉! \n厳しい中の価値ある１本に期待\u{1F41F}",
+            ["大吉！！！ \n爆釣の予感\u{1F41F}\u{1F41F}\u{1F41F}",
+             "中吉！！ \n楽しい釣りになりそう\u{1F41F}\u{1F41F}",
+             "小吉！ \n厳しい中の価値ある１本に期待\u{1F41F}",
              "凶\u{1F631} \n釣れないかも...\n根がかりに気をつけましょう！"].sample
           else 
-            push="釣れてる夢でも見てな\u{1F61D}"
+            push="天気、潮位、日の出日の入り、占いの表示ができるよ\u{1F60E}"
           end
         else
           push = "テキスト以外はわからないよ\u{1F633}"
