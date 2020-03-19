@@ -31,21 +31,23 @@ class LinebotController < ApplicationController
           min_per = 30
           case input
           when /.*(今日|きょう).*/
-            per06to12 = doc.elements[xpath + 'info/rainfallchance/period[2]l'].text
-            per12to18 = doc.elements[xpath + 'info/rainfallchance/period[3]l'].text
-            per18to24 = doc.elements[xpath + 'info/rainfallchance/period[4]l'].text
+            per00to06 = doc.elements[xpath + 'info/rainfallchance/period[1]'].text
+            per06to12 = doc.elements[xpath + 'info/rainfallchance/period[2]'].text
+            per12to18 = doc.elements[xpath + 'info/rainfallchance/period[3]'].text
+            per18to24 = doc.elements[xpath + 'info/rainfallchance/period[4]'].text
             maxtemp = doc.elements[xpath + 'info/temperature/range[1]'].text
             mintemp = doc.elements[xpath + 'info/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push =
-              "雨だね...\n足元に気をつけて頑張ってね！\n 最高気温 #{maxtemp}℃\n 最低気温 #{mintemp}℃\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％"
+              "雨が降りそう...\n足元に気をつけて頑張ってね！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
             else
               push =
-              "良い天気だね！\nたくさん釣れると良いね！\n 最高気温 #{maxtemp}℃\n 最低気温 #{mintemp}℃\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％"
+              "良い天気だね！\nたくさん釣れると良いね！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
             end
             # 「明日」or「あした」というワードが含まれる場合
           when /.*(明日|あした).*/
             # info[2]：明日の天気
+            per00to06 = doc.elements[xpath + 'info[2]/rainfallchance/period[1]'].text
             per06to12 = doc.elements[xpath + 'info[2]/rainfallchance/period[2]'].text
             per12to18 = doc.elements[xpath + 'info[2]/rainfallchance/period[3]'].text
             per18to24 = doc.elements[xpath + 'info[2]/rainfallchance/period[4]'].text
@@ -54,39 +56,40 @@ class LinebotController < ApplicationController
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               # もし降水確率がmin_per以上の場合
               push = 
-              "明日は雨が降りそう...\nでも、魚は活発になるよ！\n 最高気温 #{maxtemp}℃\n 最低気温 #{mintemp}℃\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％"
+              "明日は雨が降りそう...\nでも、魚は活発になるよ！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
             else
               push = 
-              "明日は釣り日和になるよ！\nタックルの準備だ！\n 最高気温 #{maxtemp}℃\n 最低気温 #{mintemp}℃\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％"
+              "明日は釣り日和になるよ！\nタックルの準備だ！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
             end
           when /.*(明後日|あさって).*/
-            per06to12 = doc.elements[xpath + 'info[3]/rainfallchance/period[2]l'].text
-            per12to18 = doc.elements[xpath + 'info[3]/rainfallchance/period[3]l'].text
-            per18to24 = doc.elements[xpath + 'info[3]/rainfallchance/period[4]l'].text
-            maxtemp = doc.elements[xpath + 'info[3]/temperature/range[1]'].text
-            mintemp = doc.elements[xpath + 'info[3]/temperature/range[2]'].text
+            per00to06 = doc.elements[xpath + 'info[3]/rainfallchance/period[1]'].text
+            per06to12 = doc.elements[xpath + 'info[3]/rainfallchance/period[2]'].text
+            per12to18 = doc.elements[xpath + 'info[3]/rainfallchance/period[3]'].text
+            per18to24 = doc.elements[xpath + 'info[3]/rainfallchance/period[4]'].text
+            maxTemp = doc.elements[xpath + 'info[3]/temperature/range[1]'].text
+            minTemp = doc.elements[xpath + 'info[3]/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push = 
-              "明後日は雨が降るかも...\nでも、まだまだわからない！\n 最高気温 #{maxtemp}℃\n 最低気温 #{mintemp}℃\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％"
+              "明後日は雨が降るかも...\nでも、まだまだわからない！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
             else
               push = 
-              "明後日は釣り日和になるよ！\n楽しみだね！\n 最高気温 #{maxtemp}℃\n 最低気温 #{mintemp}℃\n\n 降水確率\n 6〜12時 #{per06to12}％\n 12〜18時  #{per12to18}％\n 18〜24時 #{per18to24}％"
+              "明後日は釣り日和になるよ！\n楽しみだね！\n\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
             end
           when /.*(潮位|タイド|潮).*/
             url  = "http://fishing-community.appspot.com/tidexml/index?portid=103&year=&month=&day="
             xml  = open( url ).read.toutf8
             doc = REXML::Document.new(xml)
-            tidename = doc.elements['tide-name/tideinfo'].text
-            tidedetime1 = doc.elements['tide-time/tidedetails[1]/tideinfo'].text
-            tidedetime2 = doc.elements['tide-time/tidedetails[2]/tideinfo'].text
-            tidedetime3 = doc.elements['tide-time/tidedetails[3]/tideinfo'].text
-            tidedetime4 = doc.elements['tide-time/tidedetails[4]/tideinfo'].text
-            tidelevel1 = doc.elements['tide-level/tidedetails[4]/tideinfo'].text
-            tidelevel2 = doc.elements['tide-level/tidedetails[4]/tideinfo'].text
-            tidelevel3 = doc.elements['tide-level/tidedetails[4]/tideinfo'].text
-            tidelevel4 = doc.elements['tide-level/tidedetails[4]/tideinfo'].text
+            tideName = doc.elements['tide-info/tide-name'].text
+            tideTime1 = doc.elements['tideinfo/tidedetails[1]/tide-time'].text
+            tideTime2 = doc.elements['tideinfo/tidedetails[2]/tide-time'].text
+            tideTime3 = doc.elements['tideinfo/tidedetails[3]/tide-time'].text
+            tideTime4 = doc.elements['tideinfo/tidedetails[4]/tide-time'].text
+            tideLevel1 = doc.elements['tideinfo/tidedetails[1]/tide-level'].text
+            tideLevel2 = doc.elements['tideinfo/tidedetails[2]/tide-level'].text
+            tideLevel3 = doc.elements['tideinfo/tidedetails[3]/tide-level'].text
+            tideLevel4 = doc.elements['tideinfo/tidedetails[4]/tide-level'].text
             push = 
-            "本日の潮位です。\n#{tidename}\n#{tidedetime1}\n#{tidelevel1}cm\n#{tidedetime2}\n#{tidelevel2}cm\n#{tidedetime3}cm\n#{tidelevel3}\n#{tidedetime4}\n#{tidelevel4}cm"
+            "本日の潮位です。\n\n#{tideName}\n#{tideTime1}\n#{tideLevel1}cm\n#{tideTime2}\n#{tideLevel2}cm\n#{tideTime3}cm\n#{tideLevel3}\n#{tideTime4}\n#{tideLevel4}cm"
           when /.*(かわいい|可愛い|カワイイ|きれい|綺麗|キレイ|素敵|ステキ|すてき|面白い|おもしろい|ありがと|すごい|スゴイ|スゴい|好き|頑張|がんば|ガンバ).*/
             push =
               "ありがとうございます！！！\n優しい言葉をかけてくれるあなたはとても素敵です！！"
