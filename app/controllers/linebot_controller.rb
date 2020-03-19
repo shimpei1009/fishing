@@ -35,10 +35,10 @@ class LinebotController < ApplicationController
             minTemp = doc.elements[xpath + 'info[3]/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push = 
-              "明後日は雨が降るかも\nでも、まだまだわからない！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "明後日は雨が降るかも\uDBC0\uDC84 \nでも、まだまだわからない！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push = 
-              "明後日は釣り日和になるよ\n楽しみだね\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "明後日は釣り日和になるよ！\n楽しみだね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(明日|あした).*/
             per00to06 = doc.elements[xpath + 'info[2]/rainfallchance/period[1]'].text
@@ -49,10 +49,10 @@ class LinebotController < ApplicationController
             minTemp = doc.elements[xpath + 'info[2]/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push = 
-              "明日は雨が降りそう\nでも、魚は活発になるよ！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "明日は雨が降りそう！\nでも、魚は活発になるよ！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push = 
-              "明日は釣り日和になるよ\nタックルの準備だ！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "明日は釣り日和になるよ！\nタックルの準備だ！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(今日|きょう|天気).*/
             per00to06 = doc.elements[xpath + 'info/rainfallchance/period[1]'].text
@@ -63,10 +63,10 @@ class LinebotController < ApplicationController
             minTemp = doc.elements[xpath + 'info/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push =
-              "雨が降りそう\n足元に気をつけて頑張ってね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "雨が降りそう！\n足元に気をつけて頑張ってね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push =
-              "良い天気だね\nたくさん釣れると良いね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "良い天気だね！\nたくさん釣れると良いね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(潮位|タイド|潮).*/
             url  = "http://fishing-community.appspot.com/tidexml/index?portid=103&year=&month=&day="
@@ -83,10 +83,10 @@ class LinebotController < ApplicationController
             tideLevel4 = doc.elements['tideinfo/tidedetails[4]/tide-level'].text
             if tideLevel4 == nil
             push = 
-              "本日の潮位です\n潮を読みきれ！！\n\n#{tideName}\n#{tideTime1} / #{tideLevel1}cm\n#{tideTime2} / #{tideLevel2}cm\n#{tideTime3} / #{tideLevel3}cm"
+              "本日の潮位です！\n潮を読みきれ！！\n\n#{tideName}\n#{tideTime1} / #{tideLevel1}cm\n#{tideTime2} / #{tideLevel2}cm\n#{tideTime3} / #{tideLevel3}cm"
             else
             push = 
-              "本日の潮位です\n潮を読みきれ！！\n\n#{tideName}\n#{tideTime1} / #{tideLevel1}cm\n#{tideTime2} / #{tideLevel2}cm\n#{tideTime3} / #{tideLevel3}cm\n#{tideTime4} / #{tideLevel4}cm"
+              "本日の潮位です！\n潮を読みきれ！！\n\n#{tideName}\n#{tideTime1} / #{tideLevel1}cm\n#{tideTime2} / #{tideLevel2}cm\n#{tideTime3} / #{tideLevel3}cm\n#{tideTime4} / #{tideLevel4}cm"
             end
           when /.*(日の出|日の入|ひので|ひのいり|日ノ出|日ノ入|マズメ|まずめ).*/
             url  = "http://fishing-community.appspot.com/tidexml/index?portid=103&year=&month=&day="
