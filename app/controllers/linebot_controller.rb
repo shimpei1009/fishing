@@ -63,10 +63,10 @@ class LinebotController < ApplicationController
             minTemp = doc.elements[xpath + 'info/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push =
-              "雨が降りそう#{0x1000A9}\n足元に気をつけて頑張ってね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "雨が降りそう#{\uDBC0\uDCA9}\n足元に気をつけて頑張ってね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push =
-              "良い天気だね#{0x1000A9}\nたくさん釣れると良いね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "良い天気だね#{\uDBC0\uDCA9}\\nたくさん釣れると良いね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(潮位|タイド|潮).*/
             url  = "http://fishing-community.appspot.com/tidexml/index?portid=103&year=&month=&day="
