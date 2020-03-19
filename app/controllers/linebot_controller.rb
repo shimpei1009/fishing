@@ -29,7 +29,7 @@ class LinebotController < ApplicationController
           # 当日朝のメッセージの送信の下限値は20％としているが、明日・明後日雨が降るかどうかの下限値は30％としている
           case input
           when /.*(潮位|タイド|潮).*/
-            tideName = doc.elements['tide-info/tide-name'].text
+            tideName = doc.elements['tideinfo/tide-name'].text
             tideTime1 = doc.elements['tideinfo/tidedetails[1]/tide-time'].text
             tideTime2 = doc.elements['tideinfo/tidedetails[2]/tide-time'].text
             tideTime3 = doc.elements['tideinfo/tidedetails[3]/tide-time'].text
