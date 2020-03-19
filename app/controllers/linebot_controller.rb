@@ -30,7 +30,7 @@ class LinebotController < ApplicationController
           # 当日朝のメッセージの送信の下限値は20％としているが、明日・明後日雨が降るかどうかの下限値は30％としている
           min_per = 30
           case input
-          when /.*(今日|きょう).*/
+          when /.*(今日|きょう|天気).*/
             per00to06 = doc.elements[xpath + 'info/rainfallchance/period[1]'].text
             per06to12 = doc.elements[xpath + 'info/rainfallchance/period[2]'].text
             per12to18 = doc.elements[xpath + 'info/rainfallchance/period[3]'].text
@@ -39,10 +39,10 @@ class LinebotController < ApplicationController
             mintemp = doc.elements[xpath + 'info/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push =
-              "雨が降りそう...\n足元に気をつけて頑張ってね！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
+              "雨が降りそう...\n足元に気をつけて頑張ってね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push =
-              "良い天気だね！\nたくさん釣れると良いね！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
+              "良い天気だね！\nたくさん釣れると良いね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
             # 「明日」or「あした」というワードが含まれる場合
           when /.*(明日|あした).*/
@@ -56,10 +56,10 @@ class LinebotController < ApplicationController
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               # もし降水確率がmin_per以上の場合
               push = 
-              "明日は雨が降りそう...\nでも、魚は活発になるよ！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
+              "明日は雨が降りそう...\nでも、魚は活発になるよ！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push = 
-              "明日は釣り日和になるよ！\nタックルの準備だ！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
+              "明日は釣り日和になるよ！\nタックルの準備だ！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(明後日|あさって).*/
             per00to06 = doc.elements[xpath + 'info[3]/rainfallchance/period[1]'].text
@@ -70,10 +70,10 @@ class LinebotController < ApplicationController
             minTemp = doc.elements[xpath + 'info[3]/temperature/range[2]'].text
             if per06to12.to_i >= min_per || per12to18.to_i >= min_per || per18to24.to_i >= min_per
               push = 
-              "明後日は雨が降るかも...\nでも、まだまだわからない！\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
+              "明後日は雨が降るかも...\nでも、まだまだわからない！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push = 
-              "明後日は釣り日和になるよ！\n楽しみだね！\n\n降水確率\n0〜6時：#{per00to06}\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n 最低気温：#{minTemp}℃"
+              "明後日は釣り日和になるよ！\n楽しみだね！\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(潮位|タイド|潮).*/
             url  = "http://fishing-community.appspot.com/tidexml/index?portid=103&year=&month=&day="
