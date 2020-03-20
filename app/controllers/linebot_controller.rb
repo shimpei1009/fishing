@@ -25,8 +25,10 @@ class LinebotController < ApplicationController
           url= "http://api.openweathermap.org/data/2.5/forecast?lon=#{longitude}&lat=#{latitude}&APPID=#{appId}&units=metric&mode=xml"
           xml  = open( url ).read.toutf8
           doc = REXML::Document.new(xml)
-          push = doc
-
+          xpath = 'weatherdata/forecast/time[1]/'
+          now = doc.elements[xpath + 'symbol'].attributes['name'].text
+          nowTemp = doc.elements[xpath + 'temperature'].attributes['value'].text
+          push = now
 
         when Line::Bot::Event::MessageType::Text
           input = event.message['text']
