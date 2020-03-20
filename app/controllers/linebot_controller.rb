@@ -26,8 +26,8 @@ class LinebotController < ApplicationController
           xml  = open( url ).read.toutf8
           doc = REXML::Document.new(xml)
           xpath = 'weatherdata/forecast/time[1]/'
-          now = doc.elements[xpath + "symbol['@number,@var']"].attributes['name'].text
-          nowTemp = doc.elements[xpath + "temperature['@unit,@min,@max']"].attributes['value'].text
+          now = doc.elements[xpath + 'symbol'].attributes['name']
+          nowTemp = doc.elements[xpath + 'temperature'].attributes['value']
           if now == "clear sky" || "few clouds"
             push = "現在地の天気は#{now}です\u{2600}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           elsif now == "scattered clouds" || "broken clouds"
@@ -164,4 +164,3 @@ class LinebotController < ApplicationController
     }
   end
 end
-
