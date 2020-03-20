@@ -29,7 +29,7 @@ class LinebotController < ApplicationController
           now = doc.elements[xpath + 'symbol'].attributes['name']
           nowTemp = doc.elements[xpath + 'temperature'].attributes['value']
           if now == "clear sky" || "few clouds"
-            push = "現在地の天気は#{now}です\u{2600}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
+            push = "現在地の天気は晴れです\u{2600}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           elsif now == "scattered clouds" || "broken clouds"
             push = "現在地の天気は曇りです\u{2601}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           elsif now == "shower rain" || "rain" || "thunderstorm"
