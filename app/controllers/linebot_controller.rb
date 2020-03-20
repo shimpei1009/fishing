@@ -18,6 +18,28 @@ class LinebotController < ApplicationController
       case event
       when Line::Bot::Event::Message
         case event.type
+        when Line::Bot::Event::MessageType::Location
+          latitude = event.message['latitude']
+          longitude = event.message['longitude']
+          appId = "a53724916ca69915d40d69b80191fa61"
+          url= "http://api.openweathermap.org/data/2.5/forecast?lon=#{longitude}&lat=#{latitude}&APPID=#{appId}&units=metric&mode=xml"
+          xml  = open( url ).read.toutf8
+          doc = REXML::Document.new(xml)
+          xpath = 'weatherdata/forecast/time/'
+          now = doc.elements[xpath + 'symbol[2]'].text
+          nowTemp = doc.elements[xpath + 'temperature[2]/'].text
+          if now == "clear sky" || "few clouds"
+            push = "晴"
+          elsif now == "scattered clouds" || "broken clouds"
+            push = "曇り"
+          elsif now == "shower rain" || "rain" || "thunderstorm"
+            push = "雨"
+          elsif now == "snow"
+            push = "雪"
+          else
+            push = "きり"
+          end
+
         when Line::Bot::Event::MessageType::Text
           input = event.message['text']
           url  = "https://www.drk7.jp/weather/xml/13.xml"
