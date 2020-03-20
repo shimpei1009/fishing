@@ -25,9 +25,8 @@ class LinebotController < ApplicationController
           url= "http://api.openweathermap.org/data/2.5/forecast?lon=#{longitude}&lat=#{latitude}&APPID=#{appId}&units=metric&mode=xml"
           xml  = open( url ).read.toutf8
           doc = REXML::Document.new(xml)
-          xpath = 'weatherdata/forecast/time/'
-          now = doc.elements[xpath + 'symbol'].attributes['name'].text
-          nowTemp = doc.elements[xpath + 'temperature'].attributes['value'].text
+          now = doc.elements['weatherdata/forecast/time/symbol'].attributes['@name'].text
+          nowTemp = doc.elements['weatherdata/forecast/time/temperature'].attributes['@value'].text
           if now == "clear sky" || "few clouds"
             push = "現在地の天気は#{now}です\u{2600}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           elsif now == "scattered clouds" || "broken clouds"
