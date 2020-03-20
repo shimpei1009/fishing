@@ -27,17 +27,17 @@ class LinebotController < ApplicationController
           doc = REXML::Document.new(xml)
           xpath = 'weatherdata/forecast/time/'
           now = doc.elements[xpath + 'symbol[2]'].text
-          nowTemp = doc.elements[xpath + 'temperature[2]/'].text
+          nowTemp = doc.elements[xpath + 'temperature[2]'].text
           if now == "clear sky" || "few clouds"
-            push = "晴"
+            push = "現在地の天気は晴です\u{2600}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           elsif now == "scattered clouds" || "broken clouds"
-            push = "曇り"
+            push = "現在地の天気は曇りです\u{2601}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           elsif now == "shower rain" || "rain" || "thunderstorm"
-            push = "雨"
+            push = "現在地の天気は雨です\u{2614}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           elsif now == "snow"
-            push = "雪"
+            push = "現在地の天気は雪です\u{2744}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           else
-            push = "きり"
+            push = "現在地では霧が発生しています\u{1F32B}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           end
 
         when Line::Bot::Event::MessageType::Text
@@ -88,7 +88,7 @@ class LinebotController < ApplicationController
               "雨が降りそう\u{2614} \n足元に気をつけてね\u{1F3A3}\n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             else
               push =
-              "良い天気だね\u{2600} \nたくさん釣れると良いね\u{1F604}\u{1F3A3} \n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
+              "今日は釣り日和ですね\u{2600} \nたくさん釣れると良いね\u{1F604}\u{1F3A3} \n\n降水確率\n0〜6時：#{per00to06}％\n6〜12時：#{per06to12}％\n12〜18時：#{per12to18}％\n18〜24時：#{per18to24}％\n\n最高気温：#{maxTemp}℃\n最低気温：#{minTemp}℃"
             end
           when /.*(潮位|タイド|潮).*/
             url  = "http://fishing-community.appspot.com/tidexml/index?portid=103&year=&month=&day="
