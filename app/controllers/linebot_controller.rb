@@ -4,7 +4,6 @@ class LinebotController < ApplicationController
   require 'kconv'
   require 'rexml/document'
 
-  # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
 
   def callback
@@ -28,13 +27,14 @@ class LinebotController < ApplicationController
           xpath = 'weatherdata/forecast/time[1]/'
           now = doc.elements[xpath + 'symbol'].attributes['name']
           nowTemp = doc.elements[xpath + 'temperature'].attributes['value']
-          if now == "clear sky" || "few clouds"
+          case now
+          when "clear sky" || "few clouds"
             push = "現在地の天気は晴れです\u{2600}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          elsif now == "scattered clouds" || "broken clouds"
+          when  "scattered clouds" || "broken clouds"
             push = "現在地の天気は曇りです\u{2601}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          elsif now == "shower rain" || "rain" || "thunderstorm"
+          when  "shower rain" || "rain" || "thunderstorm"
             push = "現在地の天気は雨です\u{2614}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          elsif now == "snow"
+          when "snow"
             push = "現在地の天気は雪です\u{2744}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           else
             push = "現在地では霧が発生しています\u{1F32B}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
@@ -129,6 +129,15 @@ class LinebotController < ApplicationController
              "中吉！！ \n楽しい釣りになりそう\u{1F41F}\u{1F41F}",
              "小吉！ \n厳しい中の価値ある１本に期待\u{1F41F}",
              "凶\u{1F631} \n釣れないかも...\n根がかりに気をつけましょう！"].sample
+          when /.*(センチ|cm).*/
+            num = gets.to_i
+            if num < 100
+            inch = num * 0.39370
+            push = "#{inch.ceil(2).to_f}inch"
+            else
+            ft = num * 0.032808
+            push = "#{ft.ceil(2).to_f}ft"
+            end
           else 
             push="天気、潮位、日の出日の入り、占いの表示ができるよ\u{1F60E}"
           end
