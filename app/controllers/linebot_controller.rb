@@ -130,11 +130,11 @@ class LinebotController < ApplicationController
              "小吉！ \n厳しい中の価値ある１本に期待\u{1F41F}",
              "凶\u{1F631} \n釣れないかも...\n根がかりに気をつけましょう！"].sample
           when /.*(センチ|cm).*/
-            if num.to_i < 100
-            inch = num.to_i * 0.39370
+            if input.to_i < 100
+            inch = input.to_i * 0.39370
             push = "#{inch.ceil(2).to_f}inch"
             else
-            ft = num.to_i * 0.032808
+            ft = input.to_i * 0.032808
             push = "#{ft.ceil(2).to_f}ft"
             end
           else 
