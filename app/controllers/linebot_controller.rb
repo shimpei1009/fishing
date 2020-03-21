@@ -30,14 +30,16 @@ class LinebotController < ApplicationController
           case now
           when /.*(clear sky|few clouds).*/
             push = "現在地の天気は晴れです\u{2600}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          when /.*(scattered clouds|broken clouds).*/
+          when /.*(scattered clouds|broken clouds|overcast clouds).*/
             push = "現在地の天気は曇りです\u{2601}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          when /.*(shower rain|rain|thunderstorm).*/
+          when /.*(rain|thunderstorm|drizzle).*/
             push = "現在地の天気は雨です\u{2614}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           when /.*(snow).*/
             push = "現在地の天気は雪です\u{2744}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          else
+          when /.*(fog|mist|Haze).*/
             push = "現在地では霧が発生しています\u{1F32B}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
+          else
+            push = "現在地では何かが発生していますが、\nご自身でお確かめください。\u{1F605}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           end
 
         when Line::Bot::Event::MessageType::Text
@@ -137,6 +139,12 @@ class LinebotController < ApplicationController
             ft = input.to_i * 0.032808
             push = "#{ft.ceil(2).to_f}ft"
             end
+          when /.*(インチ|inch|in).*/
+            cm = input.to_i / 0.39370
+            push = "#{cm.ceil(2).to_f}cm"
+          when /.*(フィート|ft|f).*/
+            cm = input.to_i / 0.032808
+            push = "#{cm.ceil(2).to_f}cm"
           else 
             push="天気、潮位、日の出日の入り、占いの表示ができるよ\u{1F60E}"
           end
