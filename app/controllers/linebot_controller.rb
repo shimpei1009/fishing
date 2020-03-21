@@ -30,13 +30,13 @@ class LinebotController < ApplicationController
           case now
           when "clear sky" || "few clouds"
             push = "現在地の天気は晴れです\u{2600}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          when  "scattered clouds" || "broken clouds"
+          when "scattered clouds" || "broken clouds"
             push = "現在地の天気は曇りです\u{2601}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          when  "shower rain" || "rain" || "thunderstorm"
+          when "shower rain" || "rain" || "thunderstorm"
             push = "現在地の天気は雨です\u{2614}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           when "snow"
             push = "現在地の天気は雪です\u{2744}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
-          else
+          when "fog"
             push = "現在地では霧が発生しています\u{1F32B}\n\n現在の気温は#{nowTemp}℃です\u{1F321}"
           end
 
