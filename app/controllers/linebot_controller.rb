@@ -143,7 +143,11 @@ class LinebotController < ApplicationController
             cm = input.to_i / 0.39370
             push = "#{cm.ceil(2).to_f}cm"
           when /.*(フィート|ft|f).*/
-            cm = input.to_i / 0.032808
+            x = input.to_i
+            a, b = x.to_s.split(".")
+            d = a.to_i / 0.032808
+            e = b.to_i / 0.39370
+            cm = d + e
             push = "#{cm.ceil(2).to_f}cm"
           else 
             push="天気、潮位、日の出日の入り、占いの表示ができるよ\u{1F60E}"
