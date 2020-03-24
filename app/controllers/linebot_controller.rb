@@ -143,7 +143,7 @@ class LinebotController < ApplicationController
             cm = input.to_i / 0.39370
             push = "#{cm.ceil(2).to_f}cm"
           when /.*(フィート|ft|f).*/
-            x = input.to_i
+            x = input.to_s
             a, b = x.to_s.split(".")
             d = a.to_i / 0.032808
             e = b.to_i / 0.39370
