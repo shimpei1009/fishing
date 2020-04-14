@@ -20,7 +20,7 @@ class LinebotController < ApplicationController
         when Line::Bot::Event::MessageType::Location
           latitude = event.message['latitude']
           longitude = event.message['longitude']
-          appId = "a53724916ca69915d40d69b80191fa61"
+          appId = ENV['KEY']
           url= "http://api.openweathermap.org/data/2.5/forecast?lon=#{longitude}&lat=#{latitude}&APPID=#{appId}&units=metric&mode=xml"
           xml  = open( url ).read.toutf8
           doc = REXML::Document.new(xml)
@@ -149,6 +149,7 @@ class LinebotController < ApplicationController
             e = b.to_i / 0.39370
             cm = d + e
             push = "#{cm.ceil(2).to_f}cm"
+            
           else 
             push="天気、潮位、日の出日の入り、占いの表示ができるよ\u{1F60E}"
           end
