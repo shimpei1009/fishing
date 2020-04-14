@@ -20,7 +20,7 @@ class LinebotController < ApplicationController
         when Line::Bot::Event::MessageType::Location
           latitude = event.message['latitude']
           longitude = event.message['longitude']
-          appId = ENV['KEY']
+          appId = "a53724916ca69915d40d69b80191fa61"
           url= "http://api.openweathermap.org/data/2.5/forecast?lon=#{longitude}&lat=#{latitude}&APPID=#{appId}&units=metric&mode=xml"
           xml  = open( url ).read.toutf8
           doc = REXML::Document.new(xml)
