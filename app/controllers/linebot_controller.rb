@@ -3,7 +3,6 @@ class LinebotController < ApplicationController
   require 'open-uri'
   require 'kconv'
   require 'rexml/document'
-  require 'dotenv'
 
   protect_from_forgery :except => [:callback]
 
@@ -21,7 +20,7 @@ class LinebotController < ApplicationController
         when Line::Bot::Event::MessageType::Location
           latitude = event.message['latitude']
           longitude = event.message['longitude']
-          appId = ENV['KEY']
+          appId = ['OPEN_WEATHER_KEY']
           url= "http://api.openweathermap.org/data/2.5/forecast?lon=#{longitude}&lat=#{latitude}&APPID=#{appId}&units=metric&mode=xml"
           xml  = open( url ).read.toutf8
           doc = REXML::Document.new(xml)
