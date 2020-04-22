@@ -4,7 +4,7 @@
 <img src="https://user-images.githubusercontent.com/61723950/80014485-5545e580-850b-11ea-99ea-b114e94adca4.jpeg">
 
 # 説明
-釣りに必要な情報が出てくるBOTを作成しました
+釣りに必要な情報が出てくるBOTを作成しました<br>
 Line ID @959scqli
 # 使い方
 ・天気("今日"、"明日"、"明後日"などで検索ができます)<br>
